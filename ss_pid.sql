@@ -1,3 +1,6 @@
+/*
+Trás o PID ou o SID por SID ou PID
+*/
 @set
 
 SELECT ss.sid,

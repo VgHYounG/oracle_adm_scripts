@@ -1,3 +1,6 @@
+/*
+Lista sessões por tempo de CPU
+*/
 @set
 
 SELECT ss.sid,

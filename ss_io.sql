@@ -1,3 +1,6 @@
+/*
+Lista Sessões por I/O
+*/
 @set
 
 select ss.sid,

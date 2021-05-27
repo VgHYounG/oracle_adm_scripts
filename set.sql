@@ -1,3 +1,7 @@
+/*
+Seta formatacao das colunas
+*/
+
 col sid for 9999
 col seria# for 999999
 col "OS PID" for 99999

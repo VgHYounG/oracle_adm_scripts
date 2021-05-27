@@ -1,3 +1,6 @@
+/*
+Lista Sessões por UGA
+*/
 @set
 
 select ss.sid,

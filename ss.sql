@@ -1,3 +1,6 @@
+/*
+Lista Todas as sessões
+*/
 @set
 
 ACCEPT VAR_USER PROMPT 'INFORME O USUARIO (ORACLE): '
