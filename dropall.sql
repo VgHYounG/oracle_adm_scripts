@@ -1,5 +1,5 @@
 /*
-Gera script para drop de todos os objetos de um owner;
+Gera script para drop de todos os objetos de um owner
 */
 
 @set

@@ -1,3 +1,6 @@
+/*
+Traz informacoes da sessao por SID
+*/
 @set
 
 SELECT

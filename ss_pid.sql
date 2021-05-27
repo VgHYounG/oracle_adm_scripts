@@ -1,5 +1,5 @@
 /*
-Trás o PID ou o SID por SID ou PID
+Traz o PID ou o SID por SID ou PID
 */
 @set
 
