@@ -1,5 +1,5 @@
 /*
-Checa uso das tablespaces
+tras os comandos para aumentar o datafile
 */
 
 @set
