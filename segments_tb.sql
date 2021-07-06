@@ -6,4 +6,6 @@ select
 from dba_segments
 where tablespace_name='&1'
 group by tablespace_name, segment_type, segment_name
-order by 4
+order by 4;
+
+undef 1
