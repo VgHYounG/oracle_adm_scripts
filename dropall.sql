@@ -48,10 +48,8 @@ select 'exec sys.dbms_ijob.remove(' || job || ');' from dba_jobs where  log_user
 select 'exec sys.DBMS_SCHEDULER.DROP_JOB(Job_name =>''' || OWNER || '.' || JOB_NAME || ''');' from dba_scheduler_jobs where owner like '&VAR_OWNER'
 /
 
-PROMPT select count(1), object_type from dba_objects where owner='&VAR_OWNER' group by object_type;
+PROMPT select count(1), object_type from dba_objects where owner='&VAR_OWNER' group by object_type;;
 
-PROMPT
-PROMPT SPOOL OFF
 PROMPT
 
 SET HEADING ON
