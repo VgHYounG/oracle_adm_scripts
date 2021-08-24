@@ -15,3 +15,5 @@ COL "ACESSO" FORMAT A25
 
 set trimspool on
 set verify off
+set pages 900
+set lines 900
