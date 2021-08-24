@@ -9,7 +9,7 @@ prompt
 select owner,'Tables'as "-" ,trunc(LAST_ANALYZED) as "LAST_ANAL",count(*) as Qtd
 from dba_tables
 where owner not in ('SYS','SYSTEM')
-and owner like upper('%&1%')
+and owner like upper('%&&1%')
 group by owner,'Tables',trunc(LAST_ANALYZED)
 order by owner, trunc(last_analyzed)
 /
@@ -23,7 +23,7 @@ from dba_tab_partitions
 where table_owner not in ('SYS','SYSTEM')
 and table_owner like upper('%&1%')
 group by table_owner, 'Partitioned Tables',trunc(last_analyzed)
-order by owner, trunc(last_analyzed)
+order by table_owner, trunc(last_analyzed)
 /
 prompt
 prompt ======================================
@@ -47,7 +47,7 @@ from dba_ind_partitions
 where index_owner not in ('SYS','SYSTEM')
 and index_owner like upper('%&1%')
 group by  index_owner, 'Partitioned Indexes',trunc(last_analyzed)
-order by owner, trunc(last_analyzed)
+order by index_owner, trunc(last_analyzed)
 /
 
 undef 1
