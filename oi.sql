@@ -2,6 +2,7 @@
 Script para validar objetos invalidos
 */
 SET VERIFY OFF
+@set
 
 COL COMMAND FORMAT A150
 
