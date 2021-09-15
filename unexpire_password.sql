@@ -1,9 +1,15 @@
-alter profile DEFAULT limit PASSWORD_REUSE_TIME unlimited;
-alter profile DEFAULT limit PASSWORD_LIFE_TIME  unlimited;
+for PROFILE a40
+for RESOURCE_NAME a40 
+for LIMIT a50
+
+select profile, RESOURCE_NAME, limit from dba_profiles;
 
 PROMPT
-PROMPT "EXECUTE OS COMANDOS ABAIXO PARA DESBLOQUEAR E VALIDAR OS LOGINS: "
+PROMPT "EXECUTE OS COMANDOS ABAIXO PARA ALTERAR A PROFILE, DESBLOQUEAR E VALIDAR OS LOGINS: "
 PROMPT
+
+PROMPT alter profile DEFAULT limit PASSWORD_REUSE_TIME unlimited;
+PROMPT alter profile DEFAULT limit PASSWORD_LIFE_TIME  unlimited;
 
 select 'ALTER USER ' || username || ' ACCOUNT UNLOCK;' cmd from dba_users where ACCOUNT_STATUS like '%LOCK%';
 
