@@ -8,8 +8,8 @@ PROMPT
 PROMPT "EXECUTE OS COMANDOS ABAIXO PARA ALTERAR A PROFILE, DESBLOQUEAR E VALIDAR OS LOGINS: "
 PROMPT
 
-PROMPT alter profile DEFAULT limit PASSWORD_REUSE_TIME unlimited;
-PROMPT alter profile DEFAULT limit PASSWORD_LIFE_TIME  unlimited;
+PROMPT alter profile DEFAULT limit PASSWORD_REUSE_TIME unlimited;;
+PROMPT alter profile DEFAULT limit PASSWORD_LIFE_TIME  unlimited;;
 
 select 'ALTER USER ' || username || ' ACCOUNT UNLOCK;' cmd from dba_users where ACCOUNT_STATUS like '%LOCK%';
 
