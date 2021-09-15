@@ -17,8 +17,7 @@ PROMPT SET FEEDBACK ON
 
 SELECT DBMS_METADATA.get_ddl ('SYNONYM', synonym_name, owner)
 FROM   dba_synonyms
-WHERE  owner = 'PUBLIC'
-AND    db_link IS NOT NULL;
+WHERE  owner = 'PUBLIC';
 
 SET HEADING ON
 set FEEDBACK ON
