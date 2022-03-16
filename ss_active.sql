@@ -1,3 +1,7 @@
+/*
+Checa sessoes ativas no banco
+*/
+
 set pagesize 100 linesize 400 pause off verify off
 
 col username       format a12

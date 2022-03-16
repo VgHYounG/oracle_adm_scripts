@@ -1,5 +1,7 @@
+/*
+Traz infos de sessões do RMAN
+*/
 -- ==================================================================================================
--- Traz infos de sessões do RMAN
 
 set lines 220 pages 1000
 col cf for 9,999
