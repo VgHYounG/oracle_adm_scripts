@@ -5,11 +5,10 @@ tras os comandos para aumentar o datafile
 @set
 
 ACCEPT VAR_TBS PROMPT 'INFORME O TABLESPACE: '
-USR
 
 /*
-ALTER TABLESPACE QA_DATA ADD DATAFILE '/u04/app/oracle/oradata/orcl/qa_data07.dbf'
- size 2048m autoextend on next 512m maxsize 16384m;
+ALTER TABLESPACE UNICOO_INDEX ADD DATAFILE '/u02/app/oracle/oradata/erp/ERP/datafile/UNICOO_INDEX_404.dbf'
+ size 100m autoextend on next 100m maxsize 10G;
 
 CREATE TABLESPACE PERFDATA DATAFILE '+DATA/ORCL/perfdata01.dbf'
  size 512m autoextend on next 256m maxsize 16384m;
