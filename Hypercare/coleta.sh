@@ -1,4 +1,4 @@
-export LOG_FILE=coleta2.log
+export LOG_FILE=coleta.log
 
 cd /home/oracle/mon/
 . /home/oracle/.bash_profile
