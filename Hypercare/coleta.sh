@@ -1,6 +1,6 @@
 export LOG_FILE=coleta.log
 
-cd /home/oracle/mon/
+cd /home/oracle/Flowti/scripts/Hypercare/
 . /home/oracle/.bash_profile
 
 now=$(date)
