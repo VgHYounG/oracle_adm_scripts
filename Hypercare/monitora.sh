@@ -1,4 +1,6 @@
 #!/bin/sh
+#cat mon_hist_052022.csv | column -t -s $'\t'
+#watch -n 120 "cat mon_hist_052022.csv | column -t -s $'\t'""
 export datetime=$(date +"%d-%m-%Y %T")
 export date=$(date +"%m%Y")
 export pbyinstance=() #processo por instancia
