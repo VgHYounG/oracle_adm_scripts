@@ -1,8 +1,4 @@
-set pagesize 100
-set linesize 400
-set pause off
-set verify off
-set feed on
+set pagesize 100 linesize 400 pause off verify off feed on
 
 col username       format a12
 col inst_id        format 9999999
@@ -16,6 +12,10 @@ col inicio_ult_cmd format a14 heading 'TEMPO ATIVO|OU INATIVO' justify right
 col module         format a15 truncate
 col event          format a25 truncate
 col sec_wait       format 999999
+
+prompt -------------------------------------------------------
+
+!echo -n "*$(date)"
 
 select s.username,
        s.inst_id,
@@ -47,8 +47,7 @@ and s.paddr = p.addr
 and s.status = 'ACTIVE'
 and s.inst_id = p.inst_id
 and nvl(p.pname,'XYZABC') not like 'O%'
+and s.sid <> (SELECT DISTINCT SID FROM SYS.V_$MYSTAT)
 order by inicio_ult_cmd, status, s.username;
-
-set feedback 6
 
 exit
