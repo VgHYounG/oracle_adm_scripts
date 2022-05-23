@@ -21,7 +21,7 @@ export instances=( "CDB1" )
 export mon_dir=/home/oracle/scripts/Hypercare
 export mon_file_log=$mon_dir/mon_$date.csv
 export mon_file_detailed=$mon_dir/mon_sql_$date
-export mon_file_hypercare==$mon_dir/mon_hypercare_$date
+export mon_file_hypercare=$mon_dir/mon_hypercare_$date
 
 # Env Oracle
 export ORACLE_BASE=/u01/app/oracle
@@ -125,9 +125,9 @@ fi
 
 if [ "$1" = "Y" ]; then
   echo "\`\`\`---------- " $vDtTime " ----------" >> $mon_file_hypercare.log
-  echo "Load1  : " $vLoad1  >> $mon_file_hypercare.log
-  echo "CPU%   : " $vCpuPct >> $mon_file_hypercare.log
-  echo "IOWait : " $vIOWait >> $mon_file_hypercare.log
-  echo "MEM%   : " $vMem    >> $mon_file_hypercare.log
+  echo "Load1  : $vLoad1"  >> $mon_file_hypercare.log
+  echo "CPU%   : $vCpuPct" >> $mon_file_hypercare.log
+  echo "IOWait : $vIOWait" >> $mon_file_hypercare.log
+  echo "MEM%   : $vMem"    >> $mon_file_hypercare.log
   echo "-------------------------------------------\`\`\`" >> $mon_file_hypercare.log
 fi
