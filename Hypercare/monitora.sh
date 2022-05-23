@@ -2,7 +2,7 @@
 
 ### Para Acompanhar a coleta.
 # cat mon_052022.csv | column -t -s $'\t' | less
-# watch -n 120 "cat mon_052022.csv | column -t -s $'\t'""
+# watch -n 120 "cat mon_052022.csv | column -t -s $'\t'"
 
 ### Linhas crontab
 # * * * * * sh /home/oracle/flowti/scripts/monitora.sh <Y -> detailed> <Y -> Hypercare>
