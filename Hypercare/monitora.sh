@@ -5,7 +5,7 @@
 # watch -n 120 "cat mon_052022.csv | column -t -s $'\t'""
 
 ### Linhas crontab
-# * * * * * sh /home/oracle/flowti/scripts/monitora.sh <Y>
+# * * * * * sh /home/oracle/flowti/scripts/monitora.sh <Y -> detailed> <Y -> Hypercare>
 
 # Variaveis
 export vDtTime=$(date +"%d-%m-%Y %T")
@@ -116,6 +116,20 @@ echo >> $mon_file_log
 
 # Se espeficiado parametro Y, logará informações das sessões ativas.
 if [ "$1" = "Y" ]; then
+  for i in ${!instances[@]}; do
+    export ORACLE_SID=${instances[i]}
+    $ORACLE_HOME/bin/sqlplus -S / as sysdba @$mon_dir/ss_mon.sql >> $mon_file_detailed.$ORACLE_SID
+  done;
+fi
+
+if [ "$1" = "Y" ]; then
+echo "\`\`\`---------- " vDtTime " ----------"
+echo "Load1: " vLoad1
+echo "CPU%: " vCpuPct
+echo "IOWait:" vIOWait
+echo "MEM%: "vMem
+echo "----------------------------------------\`\`\`" vDtTime
+
   for i in ${!instances[@]}; do
     export ORACLE_SID=${instances[i]}
     $ORACLE_HOME/bin/sqlplus -S / as sysdba @$mon_dir/ss_mon.sql >> $mon_file_detailed.$ORACLE_SID
