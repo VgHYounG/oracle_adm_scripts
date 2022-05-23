@@ -15,16 +15,17 @@ export sbyinstance=()
 export tbyinstance=()
 
 # Instancias a monitorar
-export instances=( "orclfs" )
+export instances=( "CDB1" )
 
 # Diretorio os scripts
-export mon_dir=/home/oracle/oracle_adm_scripts/PROJETOS/DATABASE/oracle_adm_scripts/oracle_adm_scripts/Hypercare
+export mon_dir=/home/oracle/scripts/Hypercare
 export mon_file_log=$mon_dir/mon_$date.csv
 export mon_file_detailed=$mon_dir/mon_sql_$date
+export mon_file_hypercare==$mon_dir/mon_hypercare_$date
 
 # Env Oracle
 export ORACLE_BASE=/u01/app/oracle
-export ORACLE_HOME=$ORACLE_BASE/product/19.0.0/dbhome_1
+export ORACLE_HOME=/u01/app/oracle/product/12.1.0.2/dbhome_1
 export PATH=$ORACLE_HOME/bin:$HOME/bin:$PATH:/bin:/usr/bin:/usr/sbin:/sbin
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib
 export CLASSPATH=$ORACLE_HOME/jre:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
@@ -123,15 +124,10 @@ if [ "$1" = "Y" ]; then
 fi
 
 if [ "$1" = "Y" ]; then
-echo "\`\`\`---------- " vDtTime " ----------"
-echo "Load1: " vLoad1
-echo "CPU%: " vCpuPct
-echo "IOWait:" vIOWait
-echo "MEM%: "vMem
-echo "----------------------------------------\`\`\`" vDtTime
-
-  for i in ${!instances[@]}; do
-    export ORACLE_SID=${instances[i]}
-    $ORACLE_HOME/bin/sqlplus -S / as sysdba @$mon_dir/ss_mon.sql >> $mon_file_detailed.$ORACLE_SID
-  done;
+  echo "\`\`\`---------- " $vDtTime " ----------" >> $mon_file_hypercare.log
+  echo "Load1  : " $vLoad1  >> $mon_file_hypercare.log
+  echo "CPU%   : " $vCpuPct >> $mon_file_hypercare.log
+  echo "IOWait : " $vIOWait >> $mon_file_hypercare.log
+  echo "MEM%   : " $vMem    >> $mon_file_hypercare.log
+  echo "-------------------------------------------\`\`\`" >> $mon_file_hypercare.log
 fi
