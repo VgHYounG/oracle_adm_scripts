@@ -14,3 +14,5 @@ UNION ALL
 select NULL Qtd, '------------------------------' owner from dual
 UNION ALL
 select count(*) Qtd, 'TOTAL' owner from dba_objects where status <> 'VALID';
+
+prompt @?/rdbms/admin/utlrp
