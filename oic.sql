@@ -9,7 +9,7 @@ select comp_name, version, status from dba_registry order by 1;
 
 set pages 9999
 col owner for a30
-select count(*) Qtd, owner from dba_objects where status <> 'VALID' group by owner
+select * from (select count(*) Qtd, owner from dba_objects where status <> 'VALID' group by owner order by 2) 
 UNION ALL
 select NULL Qtd, '------------------------------' owner from dual
 UNION ALL
