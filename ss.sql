@@ -2,14 +2,22 @@
 Lista Todas as sessões
 */
 @set
-
+SET WRAP ON
 ACCEPT VAR_USER PROMPT 'INFORME O USUARIO (ORACLE): '
 ACCEPT VAR_OS PROMPT   'INFORME O USUARIO (OS)    : '
 ACCEPT VAR_PRGM PROMPT 'INFORME O PROGRAMA        : '
 ACCEPT VAR_MCH PROMPT  'INFORME A MACHINE         : '
 ACCEPT VAR_SID PROMPT  'INFORME O SID             : '
 
-SELECT SID, USERNAME,
+col USERNAME for a18 
+col OSUSER for a18 TRU
+col ACESSO for a11 
+col TEMPO for a11
+col PROGRAM for a30 TRU
+col MACHINE for a20 TRU
+col TERMINAL for a18 TRU
+
+SELECT inst_id, SID, USERNAME,
     STATUS,
     OSUSER,
     PROGRAM,
@@ -19,12 +27,6 @@ SELECT SID, USERNAME,
     LPAD(TRIM(TO_CHAR(FLOOR(LAST_CALL_ET/(3600)),900)||':'||TRIM(TO_CHAR(FLOOR((LAST_CALL_ET - (FLOOR(LAST_CALL_ET/(3600))*3600))/60),900))||':'||TRIM(TO_CHAR(MOD((LAST_CALL_ET - (FLOOR(LAST_CALL_ET/(3600))*3600)),60),900))), 10, ' ') " IDLE TIME",
     MACHINE,
     TERMINAL,
-    CASE
-        WHEN (TRUNC((&_O_RELEASE/100000000)) >= 12) THEN
-            'ALTER SYSTEM KILL SESSION ' || CHR(39) || SID ||','||SERIAL# ||', @'||INST_ID|| CHR(39) || ' IMMEDIATE ;'
-        ELSE
-            '[node ' || INST_ID || '] ALTER SYSTEM DISCONNECT SESSION ' || CHR(39) || SID ||','||SERIAL# || CHR(39) || ' IMMEDIATE ;'
-    END "MATAR A SESSÃO",
     SCHEMANAME,
     sql_id
 FROM  GV$SESSION
@@ -35,7 +37,23 @@ AND   UPPER(NVL(MACHINE, '%'))  LIKE UPPER('%&VAR_MCH%')
 AND   SID like '%&VAR_SID%'
 ORDER BY STATUS, SYSDATE-LOGON_TIME, PROGRAM DESC;
 
-select count(1) qtd, username, status from gv$session where username is not null group by username, status;
+select
+    s.inst_id,
+    count(1) qtd,
+    s.status
+from
+    gv$session s,
+    gv$process p
+where
+    s.username is not null
+    and nvl(p.pname,'XYZABC') not like 'O%'
+    and s.paddr = p.addr 
+    and s.inst_id = p.inst_id
+group by
+    s.inst_id,
+    s.status
+order by 1;
 
 CLEAR COL
 UNDEF VAR_USER VAR_OS VAR_PRGM VAR_MCH VAR_SID
+SET WRAP ON

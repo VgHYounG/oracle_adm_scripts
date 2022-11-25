@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Uso: LimpaArchive.sh <SID> <Caminho Log>
-# 30 1 * * * sh /u01/app/oracle/Flowti/scripts/LimpaArchive.sh CDB1 /u01/app/oracle/Flowti/logs
+# 30 1 * * * sh /home/oracle/flowti/LimpaArchive.sh CDB1 /home/oracle/flowti/LogsLimpaArchive
 
 export ORACLE_HOME=/u01/app/oracle/product/12.1.0.2/dbhome_1/
 export PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/u01/app/oracle/product/12.1.0.2/dbhome_1/bin:/home/oracle/.local/bin:/home/oracle/bin
@@ -16,4 +16,4 @@ EOF
 echo
 echo "Limpando Logs" >> $LOG_FILE
 echo
-find $2 -type f -mtime 5 -name "limpaArchive_*.log" -exec rm -frv {} \; >> $LOG_FILE
+find $2 -type f -mtime 5 -name "limpaArchive_*.log" -exec rm -fv {} \; >> $LOG_FILE
