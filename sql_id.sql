@@ -4,7 +4,7 @@ Traz SQL_TEXT e informacoes de execucao de um SQL_ID
 @set
 set long 999999999
 
-select s.EXECUTIONS, s.* from gv$sqlarea s
+select s.EXECUTIONS EXEC, s.INST_ID INST, PLSQL_EXEC_TIME PLSQL_TIME, s.SQL_FULLTEXT, PLAN_HASH_VALUE from gv$sqlarea s
 where sql_id='&&1';
 
 col av for 9999999

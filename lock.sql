@@ -1,17 +1,18 @@
-/*
-Traz sessoes e objetos em lock
-*/
 @set
 prompt "########## sessões em lock ##########"
 
+col "Inst: Blocker" for a15
+col "Inst: Blocked" for a15
+
  SELECT 
-     INST_LOCK||'   : '||SID_LOCK as  "Inst: Sessão bloqueadora",INST_WAIT||'   : '||SID_WAIT  as "Inst: Sessão bloqueada"
-,      LOCK_CTIME_HOUR
-,      WAIT_CTIME_HOUR
-,      T2.CLIENT_INFO CI_LOCK
-,      T3.CLIENT_INFO CI_WAIT
-,      WAITER_LOCK_TYPE
-,      WAITER_MODE_REQ
+     INST_LOCK||'   : '||SID_LOCK as  "Inst: Blocker",
+     INST_WAIT||'   : '||SID_WAIT  as "Inst: Blocked",
+      LOCK_CTIME_HOUR,
+      WAIT_CTIME_HOUR,
+--      T2.CLIENT_INFO CI_LOCK,
+--      T3.CLIENT_INFO CI_WAIT,
+      WAITER_LOCK_TYPE,
+      WAITER_MODE_REQ
 from
 (
 SELECT LH.INST_ID INST_LOCK, LH.SID SID_LOCK, ROUND(LH.CTIME/60/60,2) LOCK_CTIME_HOUR,
@@ -69,7 +70,9 @@ order by LOCK_CTIME_HOUR desc,SID_LOCK
 /
 
 
-prompt "########## locktree ##########"
+col SID for 999
+
+prompt "############# locktree ##############"
 /* LOCKTREE.sql
  * Baseado no script locktree.sql de Guy Harrison, em http://165.225.144.123/OPSGSamples/Ch15/lock_tree.sql
  */
@@ -173,39 +176,39 @@ ORDER SIBLINGS BY lock_ctime, wait_ctime
 
 
 
-prompt "##########  Objetos em lock ##########"
+-- prompt "##########  Objetos em lock ##########"
 
-SELECT
-        count(Object_Name),
-        B.Object_Name
-FROM 
-        GV$Locked_Object A, 
-        dba_Objects B,
-        gv$session C
-WHERE 
-        a.INST_ID = c.INST_ID AND
-        A.Object_ID = B.Object_ID AND
-        SESSION_ID = SID AND
-        C.USERNAME = A.Oracle_Username  
-group by B.Object_Name having count(Object_Name) > 0
-order by 1 asc
-/
+-- SELECT
+--         count(Object_Name),
+--         B.Object_Name
+-- FROM 
+--         GV$Locked_Object A, 
+--         dba_Objects B,
+--         gv$session C
+-- WHERE 
+--         a.INST_ID = c.INST_ID AND
+--         A.Object_ID = B.Object_ID AND
+--         SESSION_ID = SID AND
+--         C.USERNAME = A.Oracle_Username  
+-- group by B.Object_Name having count(Object_Name) > 0
+-- order by 1 asc
+-- /
 
-SELECT
-        B.Object_Name,
-        c.username,
-        SESSION_ID,
-        c.inst_id
-FROM 
-        GV$Locked_Object A, 
-        dba_Objects B,
-        gv$session C
-WHERE 
-        a.INST_ID = c.INST_ID AND
-        A.Object_ID = B.Object_ID AND
-        SESSION_ID = SID 
-order by 1 asc
-/
+-- SELECT
+--         B.Object_Name,
+--         c.username,
+--         SESSION_ID,
+--         c.inst_id
+-- FROM 
+--         GV$Locked_Object A, 
+--         dba_Objects B,
+--         gv$session C
+-- WHERE 
+--         a.INST_ID = c.INST_ID AND
+--         A.Object_ID = B.Object_ID AND
+--         SESSION_ID = SID 
+-- order by 1 asc
+-- /
 
 /*
  COL Obj FORMAT A30
