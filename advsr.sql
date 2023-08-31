@@ -14,7 +14,7 @@ BEGIN
   l_sql_tune_task_id := DBMS_SQLTUNE.create_tuning_task (
                           sql_id      => '&VAR_SQLID',
                           scope       => DBMS_SQLTUNE.scope_comprehensive,
-                          time_limit  => 300,
+                          time_limit  => 1200,
                           task_name   => 'tuning_task_&VAR_SQLID',
                           description => 'Tuning task1 for sql_id &VAR_SQLID');
     DBMS_SQLTUNE.execute_tuning_task(task_name => l_sql_tune_task_id);

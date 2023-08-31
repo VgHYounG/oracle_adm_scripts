@@ -1,11 +1,11 @@
 #!/bin/sh
 
 ### Para Acompanhar a coleta.
-# cat mon_062022.csv | column -t -s $'\t' | less
-# watch -n 120 "cat mon_062022.csv | column -t -s $'\t' | tail -n $(($LINES - 2))"
+# cat mon_032023.csv | column -t -s $'\t' | less
+# watch -n 120 "cat mon_032023.csv | column -t -s $'\t' | tail -n $(($LINES - 2))"
 
 ### Linhas crontab
-# * * * * * sh /home/oracle/flowti/scripts/monitora.sh <Y -> detailed> <Y -> Hypercare>
+# * * * * * sh /home/oracle/scripts/Hypercare/monitora.sh
 
 # Variaveis
 export vDtTime=$(date +"%d-%m-%Y %T")
@@ -15,17 +15,17 @@ export sbyinstance=()
 export tbyinstance=()
 
 # Instancias a monitorar
-export instances=( "CDB1" )
+export instances=( "portal1" "solus1" "producao1" "prd1")
 
 # Diretorio os scripts
-export mon_dir=/home/oracle/scripts/Hypercare
+export mon_dir=/home/oracle/coleta_19c/
 export mon_file_log=$mon_dir/mon_$date.csv
 export mon_file_detailed=$mon_dir/mon_sql_$date
 export mon_file_hypercare=$mon_dir/mon_hypercare_$date
 
 # Env Oracle
 export ORACLE_BASE=/u01/app/oracle
-export ORACLE_HOME=/u01/app/oracle/product/12.1.0.2/dbhome_1
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1
 export PATH=$ORACLE_HOME/bin:$HOME/bin:$PATH:/bin:/usr/bin:/usr/sbin:/sbin
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib
 export CLASSPATH=$ORACLE_HOME/jre:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
@@ -115,19 +115,16 @@ done
 # Quebra de linha
 echo >> $mon_file_log 
 
-# Se espeficiado parametro Y, logará informações das sessões ativas.
-if [ "$1" = "Y" ]; then
-  for i in ${!instances[@]}; do
-    export ORACLE_SID=${instances[i]}
-    $ORACLE_HOME/bin/sqlplus -S / as sysdba @$mon_dir/ss_mon.sql >> $mon_file_detailed.$ORACLE_SID
-  done;
-fi
+# Loga informações das sessões ativas.
+for i in ${!instances[@]}; do
+  export ORACLE_SID=${instances[i]}
+  $ORACLE_HOME/bin/sqlplus -S / as sysdba @$mon_dir/ss_mon.sql >> $mon_file_detailed.$ORACLE_SID
+done;
 
-if [ "$1" = "Y" ]; then
-  echo "\`\`\`---------- " $vDtTime " ----------" >> $mon_file_hypercare.log
-  echo "Load1  : $vLoad1"  >> $mon_file_hypercare.log
-  echo "CPU%   : $vCpuPct" >> $mon_file_hypercare.log
-  echo "IOWait : $vIOWait" >> $mon_file_hypercare.log
-  echo "MEM%   : $vMem"    >> $mon_file_hypercare.log
-  echo "-------------------------------------------\`\`\`" >> $mon_file_hypercare.log
-fi
+echo "\`\`\`---------- " $vDtTime " ----------" >> $mon_file_hypercare.log
+echo "Load1  : $vLoad1"  >> $mon_file_hypercare.log
+echo "CPU%   : $vCpuPct" >> $mon_file_hypercare.log
+echo "IOWait : $vIOWait" >> $mon_file_hypercare.log
+echo "MEM%   : $vMem"    >> $mon_file_hypercare.log
+echo "-------------------------------------------\`\`\`" >> $mon_file_hypercare.log
+
