@@ -7,14 +7,15 @@ set pagesize 100 linesize 400 pause off verify off
 col username       format a12
 col inst_id        format 9999999
 col os_pid         format 9999999
-col sessao         format a12
+col sessao         format a15
 col machine        format a8
 col programa       format a15 truncate
 col machine_osuser format a20 truncate heading "MACHINE: OSUSER"
-col log_time       format a10  heading 'HORARIO|DO LOGIN' justify right
+col log_time       format a10 heading 'HORARIO|DO LOGIN' justify right
 col inicio_ult_cmd format a14 heading 'TEMPO ATIVO|OU INATIVO' justify right
 col module         format a15 truncate
 col event          format a25 truncate
+col SERVICE_NAME   format a10 heading 'SERVICE|NAME' justify left
 col sec_wait       format 999999
 
 select s.username,
@@ -40,6 +41,7 @@ select s.username,
 	             s.event 
 		    ELSE 'ON CPU' END event,
 	   s.seconds_in_wait sec_wait,
+      s.SERVICE_NAME,
 	   s.sql_id
 from gv$session s, gv$process p
 where s.username is not null
