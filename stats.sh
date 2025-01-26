@@ -28,7 +28,7 @@ DBMS_STATS.GATHER_DATABASE_STATS(
     ,options => 'GATHER'
     ,statown => null
     ,gather_sys => TRUE
-    ,NO_INVALIDATE => FALSE
+    ,NO_INVALIDATE => TRUE
     ,gather_temp => TRUE
     ,gather_fixed => FALSE
     ,stattype => 'ALL'
@@ -61,7 +61,7 @@ DBMS_STATS.GATHER_DATABASE_STATS(
     ,options => 'GATHER'
     ,statown => null
     ,gather_sys => TRUE
-    ,NO_INVALIDATE => FALSE
+    ,NO_INVALIDATE => TRUE
     ,gather_temp => TRUE
     ,gather_fixed => FALSE
     ,stattype => 'ALL'

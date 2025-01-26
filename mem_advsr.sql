@@ -1,3 +1,7 @@
+/*
+Traz informacoes do oracle advisor memory
+*/
+
 PROMPT >>>>>>>> ESTATISTICAS DE MEMORIA ORACLE ADVISORS
 PROMPT 
 PROMPT --Advisors 1 - Buffer Cache, 2 - Shared Pool, 3 - PGA, 4 - SGA, 5 - MEMORY (11g)
@@ -6,10 +10,10 @@ set pages 400;
 show parameter db_cache_size
  
 PROMPT
-COLUMN size_for_estimate FORMAT 999,999,999,999 heading 'Cache Size (MB)'
-COLUMN buffers_for_estimate FORMAT 999,999,999 heading 'Buffers'
-COLUMN estd_physical_read_factor FORMAT 999.90 heading 'Estd Phys|Read Factor'
-COLUMN estd_physical_reads FORMAT 999,999,999 heading 'Estd Phys| Reads'
+COLUMN size_for_estimate FORMAT 999,999,999,999,999 heading 'Cache Size (MB)'
+COLUMN buffers_for_estimate FORMAT 999,999,999,999 heading 'Buffers'
+COLUMN estd_physical_read_factor FORMAT 999,999,999,999.90 heading 'Estd Phys|Read Factor'
+COLUMN estd_physical_reads FORMAT 999,999,999,999,999 heading 'Estd Phys| Reads'
 SELECT size_for_estimate, buffers_for_estimate, estd_physical_read_factor, estd_physical_reads
 FROM V$DB_CACHE_ADVICE
 WHERE name = 'DEFAULT'

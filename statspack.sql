@@ -1,6 +1,6 @@
 
 
-create tablespace PERFSTAT datafile size 300M autoextend on next 8M maxsize 10G;
+create tablespace PERFSTAT datafile '/oradata/prd/datafile/perfstat01.dbf'  size 300M autoextend on next 8M maxsize 16G;
 define default_tablespace='perfstat'
 define temporary_tablespace='temp'
 @?/rdbms/admin/spcreate
@@ -8,11 +8,11 @@ define temporary_tablespace='temp'
 
 exec dbms_scheduler.create_program(program_name => 'SP_SNAP_PROG', program_type => 'STORED_PROCEDURE', program_action => 'PERFSTAT.statspack.snap', number_of_arguments => 0, enabled => FALSE);
 exec dbms_scheduler.enable(name => 'SP_SNAP_PROG');
-exec dbms_scheduler.create_schedule (schedule_name => 'SP_SNAP_SCHED', repeat_interval => 'freq=hourly; byminute=0,15,30,45; bysecond=0',end_date => null, comments => 'Schedule for Statspack snaps');
+exec dbms_scheduler.create_schedule (schedule_name => 'SP_SNAP_SCHED', repeat_interval => 'freq=hourly; byminute=0; bysecond=0',end_date => null, comments => 'Schedule for Statspack snaps');
 exec dbms_scheduler.create_job (job_name => 'SP_SNAP_JOB', program_name => 'SP_SNAP_PROG', schedule_name => 'SP_SNAP_SCHED',  enabled => TRUE, auto_drop => FALSE, comments => 'Statspack Job for snaps');
 
 Exec dbms_scheduler.stop_job('SP_PURGE_JOB');
-Exec dbms_scheduler.drop_job('SP_PURGE_JOB');
+Exec dbms_scheduler.drop_job('STATSPACK_SNAPSHOT');
 Exec dbms_scheduler.drop_schedule('SP_PURGE_SCHED');
 Exec dbms_scheduler.drop_program('SP_PURGE_PROG');
 

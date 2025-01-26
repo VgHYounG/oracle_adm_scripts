@@ -1,6 +1,7 @@
 /*
 Checa uso das tablespaces
 */
+set pages 900 lines 900
 
 COLUMN DUMMY NOPRINT
 COLUMN "PCT_USED" FORMAT 999.99            HEADING "%|Used"

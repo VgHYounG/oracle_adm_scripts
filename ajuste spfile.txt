@@ -1,0 +1,2 @@
+echo "spfile='+DATAC2/CDBLAB/spfileCDBLAB.ora'" >> $ORACLE_HOME/dbs/init$ORACLE_SID.ora
+srvctl modify database -d CDBLAB -spfile +DATAC2/CDBLAB/spfileCDBLAB.ora

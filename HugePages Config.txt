@@ -1,0 +1,7 @@
+vi /etc/sysctl.conf
+
+# Hugepages Oracle (200gb)
+vm.nr_hugepages=100000
+vm.hugetlb_shm_group=53001
+
+echo 3 > /proc/sys/vm/drop_caches;sysctl -w vm.drop_caches=3;sysctl -p;grep Huge /proc/meminfo
