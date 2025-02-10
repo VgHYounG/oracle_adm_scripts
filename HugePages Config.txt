@@ -1,7 +1,18 @@
+
+vm.nr_hugepages = (60% a 80% da mem. total do server) * 500
+exemplo:
+Server tem 250g de ram, vamos alocar 200gb:
+vm.nr_hugepages=200*500
+vm.nr_hugepages=100000
+
+Configurar Hugepages:
+
 vi /etc/sysctl.conf
 
 # Hugepages Oracle (200gb)
 vm.nr_hugepages=100000
 vm.hugetlb_shm_group=53001
 
+# Rodar o comando abaixo para limpar o cache e carregar as hugepages 
 echo 3 > /proc/sys/vm/drop_caches;sysctl -w vm.drop_caches=3;sysctl -p;grep Huge /proc/meminfo
+

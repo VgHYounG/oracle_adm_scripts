@@ -8,16 +8,11 @@ col comp_name for a40
 select comp_name, version, status from dba_registry order by 1;
 
 set pages 9999
-col PDB_NAME for a20
-col owner for a20
-col OBJECT_TYPE for a20
-col status for a20
-
-select p.name "PDB_NAME", o.OWNER, o.OBJECT_TYPE, o.STATUS, count(*) 
-from cdb_objects o, v$pdbs p
-where status <> 'VALID'
-and o.CON_ID = p.CON_ID
-group by p.name, o.OWNER, o.OBJECT_TYPE, o.STATUS 
-order by 1,2,3,4;
+col owner for a30
+select * from (select count(*) Qtd, owner from dba_objects where status <> 'VALID' group by owner order by 2) 
+UNION ALL
+select NULL Qtd, '------------------------------' owner from dual
+UNION ALL
+select count(*) Qtd, 'TOTAL' owner from dba_objects where status <> 'VALID';
 
 prompt @?/rdbms/admin/utlrp
